@@ -1,0 +1,22 @@
+{
+  "dependencies": [
+    {
+      "name": "npm",
+      "type": "git",
+      "ref": "7672d09",
+      "url": "git@github.com:abedev/npm"
+    },
+    {
+      "name": "hxnodejs",
+      "type": "git",
+      "ref": "d25c1536",
+      "url": "git@github.com:HaxeFoundation/hxnodejs"
+    },
+    {
+      "name": "thx.stream",
+      "type": "git",
+      "ref": "bf4520c",
+      "url": "git@github.com:fponticelli/thx.stream"
+    }
+  ]
+}
