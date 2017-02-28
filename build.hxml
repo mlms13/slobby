@@ -1,0 +1,17 @@
+-lib npm
+-lib hxnodejs
+-lib thx.schema
+-lib thx.stream
+-cp src/common
+-cp src/server
+-main Main
+-js bin/server.js
+
+--next
+
+-lib thx.schema
+-lib thx.stream
+-cp src/common
+-cp src/client
+-main App
+-js public/js/client.js

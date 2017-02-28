@@ -13,6 +13,18 @@
       "url": "git@github.com:HaxeFoundation/hxnodejs"
     },
     {
+      "name": "thx.core",
+      "type": "git",
+      "ref": "59f36ae",
+      "url": "git@github.com:fponticelli/thx.core"
+    },
+    {
+      "name": "thx.schema",
+      "type": "git",
+      "ref": "73a34ed",
+      "url": "git@github.com:nuttycom/thx.schema"
+    },
+    {
       "name": "thx.stream",
       "type": "git",
       "ref": "bf4520c",
