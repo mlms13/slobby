@@ -1,10 +1,12 @@
 import common.types.User;
 import common.types.Lobby;
+import common.ServerMessage;
+import common.ClientMessage;
 
 // These are actions that cause the state to update. They are generally
 // triggered by a client.
 enum Action {
-  Start(wss: npm.ws.Server);
+  Start(server: slobby.Server<ServerMessage, ClientMessage>);
   LobbyAction(action: LobbyAction);
 }
 

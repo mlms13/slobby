@@ -1,6 +1,8 @@
 import common.types.Lobby;
+import common.ServerMessage;
+import common.ClientMessage;
 
 enum State {
   Starting;
-  Running(wss: npm.ws.Server, lobbies: Array<Lobby>);
+  Running(server: slobby.Server<ServerMessage, ClientMessage>, lobbies: Array<Lobby>);
 }

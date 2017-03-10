@@ -1,7 +1,9 @@
-import npm.ws.Server;
+import slobby.Server;
 using thx.Arrays;
 
 import common.types.Lobby;
+import common.ServerMessage;
+import common.ClientMessage;
 import Action;
 
 class Reducer {
@@ -15,10 +17,11 @@ class Reducer {
     }
   }
 
-  static function handleLobbyAction(wss: Server, lobbies: Array<Lobby>, action: LobbyAction): State {
+  static function handleLobbyAction(server: Server<ServerMessage, ClientMessage>, lobbies: Array<Lobby>, action: LobbyAction): State {
     return switch action {
-      case CreateLobby(owner, size): Running(wss, lobbies.append(Lobby.create(owner, size)));
-      case _: Running(wss, lobbies);
+      // `Lobby` is very confused by
+      case CreateLobby(owner, size): Running(server, lobbies.append(common.types.Lobby.create(owner, size)));
+      case _: Running(server, lobbies);
     }
   }
 }
