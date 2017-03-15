@@ -15,13 +15,13 @@
     {
       "name": "thx.core",
       "type": "git",
-      "ref": "59f36ae",
+      "ref": "ac52fcd",
       "url": "git@github.com:fponticelli/thx.core"
     },
     {
       "name": "thx.schema",
       "type": "git",
-      "ref": "73a34ed",
+      "ref": "8f5c04c",
       "url": "git@github.com:nuttycom/thx.schema"
     },
     {

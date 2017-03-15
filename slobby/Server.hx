@@ -1,6 +1,9 @@
 package slobby;
 
+import npm.WebSocket;
+
 import thx.schema.SimpleSchema;
+import thx.schema.SchemaDynamicExtensions;
 import thx.stream.Stream;
 
 class Server<SMsg, CMsg> {
@@ -16,11 +19,11 @@ class Server<SMsg, CMsg> {
     this.server = server;
 
     incoming = Stream.create(function (subj) {
-      server.on("connection", function (ws) {
+      server.on("connection", function (ws: npm.WebSocket) {
         ws.on("message", function (msg: Dynamic) {
 
         });
-        subj.message(Next(Connected));
+        subj.message(Next(Connected(ws)));
       });
     });
   }
@@ -30,10 +33,10 @@ class Server<SMsg, CMsg> {
     // server.send(server.clients, msg.toString());
   }
 
-
-  // public function send(connection: ?, msg: SMsg) {
-  //   server.send(server.clients, msg.toString());
-  // }
+  public function send(client: WebSocket, msg: SMsg) {
+    var msgObj = SchemaDynamicExtensions.renderDynamic(sMsgSchema, msg);
+    client.send(haxe.Json.stringify(msgObj));
+  }
 
   /**
    *  Creates and starts a new websocket server.
@@ -56,7 +59,7 @@ enum ServerConnection {
 }
 
 enum IncomingMessage<CMsg> {
-  Connected();
-  InvalidMessage(orig: String, parseError: String); // TODO: error type
-  Message(msg: CMsg);
+  Connected(client: WebSocket);
+  Invalid(client: WebSocket, orig: String, parseError: String); // TODO: error type
+  Message(client: WebSocket, msg: CMsg);
 }

@@ -18,6 +18,7 @@ enum LobbyMessage {
 }
 
 enum ServerMessage {
+  UsernamePrompt;
   Error(msg: ErrorMessage);
   Lobby(lobby: Lobby, msg: LobbyMessage);
   Game; // TODO

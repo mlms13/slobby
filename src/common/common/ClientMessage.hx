@@ -7,13 +7,16 @@ import common.types.Lobby;
 import common.types.User;
 
 enum ClientMessage {
-  CreateLobby(user: User);
-  JoinLobby(lobby: LobbyId, user: User);
+  CreateLobby(user: User, size: Int);
+  JoinLobby(user: User, lobby: LobbyId);
 }
 
 class ClientMessageExtensions {
   public static function schema<E>(): Schema<E, ClientMessage> return oneOf([
-    makeAlt("createLobby", CreateLobby, User.schema().schema),
+    // makeAlt("createLobby", CreateLobby, {
+    //   user: User.schema().schema,
+    //   size: int().schema
+    // }),
     // makeAlt("joinLobby", JoinLobby, {
     //   lobby: string().schema, // TODO: string().schema is wrong
     //   user: User.schema().schema
