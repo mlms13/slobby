@@ -32,6 +32,8 @@ class ServerMessageExtensions {
   ]);
 
   public static function schema<E>(): Schema<E, ServerMessage> return oneOf([
-    makeAlt("error", Error, errorMessageSchema().schema)
+    makeAlt("usernamePrompt", UsernamePrompt),
+    makeAlt("error", Error, errorMessageSchema().schema),
+    // TODO ...
   ]);
 }

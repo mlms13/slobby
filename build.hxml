@@ -1,18 +1,18 @@
+-cp src/common
+-cp src/server
+-cp slobby
 -lib npm
 -lib hxnodejs
 -lib thx.schema
 -lib thx.stream
--cp src/common
--cp src/server
--cp slobby
 -main Main
 -js bin/server.js
 
-# --next
+--next
 
-# -lib thx.schema
-# -lib thx.stream
-# -cp src/common
-# -cp src/client
-# -main App
-# -js public/js/client.js
+-lib thx.schema
+-lib thx.stream
+-cp src/common
+-cp src/client
+-main App
+-js public/js/client.js

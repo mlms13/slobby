@@ -1,0 +1,14 @@
+# all builds
+-cp src/common
+-cp src/server
+-cp src/client
+-cp slobby
+-lib npm
+-lib hxnodejs
+-lib thx.schema
+-lib thx.stream
+-js x
+--no-output
+
+Main
+App

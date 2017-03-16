@@ -20,17 +20,23 @@ class Server<SMsg, CMsg> {
 
     incoming = Stream.create(function (subj) {
       server.on("connection", function (ws: npm.WebSocket) {
-        ws.on("message", function (msg: Dynamic) {
-
+        ws.on("message", function (msg: Dynamic) { // TODO: is buffer a thing we have to worry about
+           try {
+            switch SchemaDynamicExtensions.parseDynamic(cMsgSchema, thx.Functions.identity, haxe.Json.parse(msg.toString())) {
+              case Left(e): subj.message(Next(Invalid(ws, '$msg', '$e'))); // TODO: error
+              case Right(v): subj.message(Next(Message(ws, v)));
+            }
+          } catch (e: Dynamic) {
+            subj.message(Next(Invalid(ws, msg, "Message could not be parsed as JSON")));
+          }
         });
         subj.message(Next(Connected(ws)));
       });
     });
   }
 
-  public function broadcast(msg: SMsg) {
-    // TODO: send to
-    // server.send(server.clients, msg.toString());
+  public function broadcast(clients: Array<WebSocket>, msg: SMsg) {
+    thx.Arrays.each(clients, send.bind(_, msg));
   }
 
   public function send(client: WebSocket, msg: SMsg) {
@@ -41,7 +47,7 @@ class Server<SMsg, CMsg> {
   /**
    *  Creates and starts a new websocket server.
    */
-  public static function create<SMsg, CMsg, Err>(sMsgSchema, cMsgSchema, connection: ServerConnection): Server<SMsg, CMsg> {
+  public static function create<SMsg, CMsg>(sMsgSchema, cMsgSchema, connection: ServerConnection): Server<SMsg, CMsg> {
     return new Server(sMsgSchema, cMsgSchema, switch connection {
       case Port(port): new npm.ws.Server({ port: port });
       case HttpsServer(server): new npm.ws.Server({ server: server });

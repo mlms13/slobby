@@ -19,9 +19,10 @@ class Reducer {
 
   static function handleLobbyAction(server: Server<ServerMessage, ClientMessage>, lobbies: Array<Lobby>, action: LobbyAction): State {
     return switch action {
-      // `Lobby` is very confused by
       case CreateLobby(owner, size): Running(server, lobbies.append(common.types.Lobby.create(owner, size)));
-      case _: Running(server, lobbies);
+      case _:
+        trace("action is valid, but we don't know how to handle it", action);
+        Running(server, lobbies);
     }
   }
 }

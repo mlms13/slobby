@@ -15,8 +15,8 @@ class Main {
     store.dispatch(Start(slob));
 
 
-    slob.incoming //.run(); // TODO: needs a run() call?
-      .message(function (incoming: IncomingMessage<common.ClientMessage>) {
+    slob.incoming
+      .next(function (incoming: IncomingMessage<common.ClientMessage>) {
         switch incoming {
           case Connected(client):
             trace("A client connected!");
@@ -29,6 +29,9 @@ class Main {
           case Message(_, JoinLobby(user, lobbyId)):
             store.dispatch(LobbyAction(JoinLobby(user, lobbyId)));
         }
-      });
+      })
+      // TODO: .error()
+      // TODO: .done()
+      .run();
   }
 }
