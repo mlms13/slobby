@@ -1,4 +1,4 @@
-package slobby;
+package slobby; // TODO: move to slobby.client;
 
 import js.html.WebSocket;
 

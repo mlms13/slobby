@@ -1,4 +1,4 @@
-package slobby;
+package slobby; // TODO: move to slobby.server;
 
 import npm.WebSocket;
 
