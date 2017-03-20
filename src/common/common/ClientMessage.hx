@@ -4,11 +4,11 @@ import thx.schema.SimpleSchema;
 import thx.schema.SimpleSchema.*;
 
 import common.types.Lobby;
-import common.types.User;
+import common.types.ClientUser;
 
 enum ClientMessage {
-  CreateLobby(user: User, size: Int);
-  JoinLobby(user: User, lobby: LobbyId);
+  CreateLobby(user: ClientUser, size: Int);
+  JoinLobby(user: ClientUser, lobby: LobbyId);
 }
 
 class ClientMessageExtensions {

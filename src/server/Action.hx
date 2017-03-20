@@ -1,5 +1,4 @@
 import common.types.User;
-import common.types.Lobby;
 import common.ServerMessage;
 import common.ClientMessage;
 
@@ -7,11 +6,18 @@ import common.ClientMessage;
 // triggered by a client.
 enum Action {
   Start(server: slobby.Server<ServerMessage, ClientMessage>);
-  LobbyAction(action: LobbyAction);
+
+  // TODO: turn these into UserAction?
+  LobbyAction(who: User, action: LobbyAction);
+  GameAction(who: User, action: GameAction);
 }
 
 enum LobbyAction {
-  CreateLobby(owner: User, size: Int);
-  JoinLobby(user: User, lobby: LobbyId);
-  DestroyLobby(lobby: LobbyId);
+  // Create(owner: User, size: Int);
+  Join(/*lobby: LobbyId*/);
+  // Destroy(lobby: LobbyId);
+}
+
+enum GameAction {
+  Vote; // TODO: lots more than this
 }

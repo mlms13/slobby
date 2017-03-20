@@ -4,7 +4,7 @@ import thx.schema.SimpleSchema;
 import thx.schema.SimpleSchema.*;
 
 import common.types.Lobby;
-import common.types.User;
+import common.types.ClientUser;
 
 enum ErrorMessage {
   AuthRequired;
@@ -13,8 +13,8 @@ enum ErrorMessage {
 }
 
 enum LobbyMessage {
-  UserJoined(user: User);
-  UserDisconnected(user: User);
+  UserJoined(user: ClientUser);
+  UserDisconnected(user: ClientUser);
 }
 
 enum ServerMessage {

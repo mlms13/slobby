@@ -10,8 +10,8 @@ abstract LobbyId(String) {
 
 class Lobby {
   public var id(default, null): LobbyId; // doubles as a URL
-  public var users(default, null): Array<User>;
-  public var owner(default, null): User;
+  public var users(default, null): Array<ClientUser>;
+  public var owner(default, null): ClientUser;
   public var maxSize(default, null): Int;
 
   function new(id, users, owner, maxSize) {
@@ -21,7 +21,7 @@ class Lobby {
     this.maxSize = maxSize;
   }
 
-  public static function create(user: User, maxSize: Int) {
+  public static function create(user: ClientUser, maxSize: Int) {
     return new Lobby(new LobbyId(), [], user, maxSize);
   }
 }
