@@ -4,6 +4,7 @@ import thx.stream.Store;
 import slobby.Server;
 import common.ClientMessage;
 import common.ServerMessage;
+import types.User;
 
 class Main {
   public static function main() {
@@ -24,10 +25,8 @@ class Main {
           case Invalid(client, orig, parseError):
             trace(parseError);
             slob.send(client, Error(Unrecognized(parseError)));
-          case Message(_, CreateLobby(user, size)):
-            store.dispatch(LobbyAction(CreateLobby(user, size)));
-          case Message(_, JoinLobby(user, lobbyId)):
-            store.dispatch(LobbyAction(JoinLobby(user, lobbyId)));
+          case Message(connection, JoinLobby(user)):
+            store.dispatch(LobbyAction(User.fromClientUser(user, connection), Join));
         }
       })
       // TODO: .error()

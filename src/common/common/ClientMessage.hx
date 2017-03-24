@@ -3,12 +3,11 @@ package common;
 import thx.schema.SimpleSchema;
 import thx.schema.SimpleSchema.*;
 
-import common.types.Lobby;
 import common.types.ClientUser;
 
 enum ClientMessage {
-  CreateLobby(user: ClientUser, size: Int);
-  JoinLobby(user: ClientUser, lobby: LobbyId);
+  // CreateLobby(user: ClientUser, size: Int);
+  JoinLobby(user: ClientUser/*, lobby: LobbyId*/);
 }
 
 class ClientMessageExtensions {
@@ -20,6 +19,6 @@ class ClientMessageExtensions {
     // makeAlt("joinLobby", JoinLobby, {
     //   lobby: string().schema, // TODO: string().schema is wrong
     //   user: User.schema().schema
-    // })
+  // })
   ]);
 }

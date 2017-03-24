@@ -1,6 +1,7 @@
-package server.types;
+package types;
 
 import npm.WebSocket;
+import common.types.ClientUser;
 
 class User {
   public var name(default, null): String;
@@ -9,5 +10,9 @@ class User {
   public function new(name: String, connection: WebSocket) {
     this.name = name;
     this.connection = connection;
+  }
+
+  public static function fromClientUser(client: ClientUser, connection: WebSocket) {
+    return new User(client.name, connection);
   }
 }

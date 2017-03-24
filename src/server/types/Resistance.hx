@@ -1,6 +1,7 @@
-package server.types;
+package types;
 
 import thx.Tuple;
+import common.resistance.Types;
 
 enum GameState {
   Lobby(players: Array<User>); // waiting for sufficient player count

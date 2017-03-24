@@ -1,4 +1,12 @@
+import common.ServerMessage;
+import common.ClientMessage;
+
 enum Action {
-  UiAction; // TODO
-  ServerAction(act: common.ServerMessage);
+  Ui(act: UiAction);
+  Server(act: common.ServerMessage);
+}
+
+enum UiAction {
+  Connect(socket: slobby.Client<ServerMessage, ClientMessage>);
+  Failed(err: String);
 }

@@ -1,6 +1,6 @@
-import common.types.User;
 import common.ServerMessage;
 import common.ClientMessage;
+import types.User;
 
 // These are actions that cause the state to update. They are generally
 // triggered by a client.

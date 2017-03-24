@@ -1,7 +1,6 @@
 import common.ServerMessage;
 import common.ClientMessage;
-import common.resistance.Types;
-import server.types.Resistance;
+import types.Resistance;
 
 enum State {
   Starting;

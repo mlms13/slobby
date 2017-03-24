@@ -2,6 +2,8 @@ package slobby; // TODO: move to slobby.client;
 
 import js.html.WebSocket;
 
+import thx.Either;
+using thx.Eithers;
 import thx.schema.SimpleSchema;
 import thx.schema.SchemaDynamicExtensions;
 import thx.stream.Stream;
@@ -33,8 +35,21 @@ class Client<SMsg, CMsg> {
     });
   }
 
-  public static function create<SMsg, CMsg>(sMsgSchema, cMsgSchema, url: String) {
-    return new Client(sMsgSchema, cMsgSchema, new WebSocket(url));
+  /**
+   *  Attempts to create a slobby.Client, connected to the provided `url`.
+   *  This returns `Left(message)` if the connection throws during creation,
+   *  or `Right(slobby.Client)` if things work.
+   */
+  public static function create<SMsg, CMsg>(sMsgSchema, cMsgSchema, url: String): Either<String, Client<SMsg, CMsg>> {
+    var ws = try {
+      Right(new WebSocket(url));
+    } catch (e: Dynamic) {
+      Left('Failed to create socket connection. ${e.message}');
+    };
+
+    return ws.map(function (socket) {
+      return new Client(sMsgSchema, cMsgSchema, socket);
+    });
   }
 }
 

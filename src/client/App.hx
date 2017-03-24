@@ -14,17 +14,22 @@ class App {
     var store = new Store(prop, Reducer.reduce, thx.stream.Reducer.Middleware.empty());
     var client = Client.create(ServerMessageExtensions.schema(), ClientMessageExtensions.schema(), "ws://localhost:7700");
 
-    client.incoming
-      .filterMap(function (msg: IncomingMessage<ServerMessage>): Option<Action> {
-        trace(msg);
-        return switch msg {
-          case Invalid(orig, err): None;
-          case Message(msg): Some(ServerAction(msg));
-        }
-      })
-      .next(function (action) {
-        store.dispatch(action);
-      })
-      .run();
+    switch client {
+      case Left(e): store.dispatch(Ui(Failed(e)));
+      case Right(client):
+        store.dispatch(Ui(Connect(client)));
+        client.incoming
+          .filterMap(function (msg: IncomingMessage<ServerMessage>): Option<Action> {
+            trace(msg);
+            return switch msg {
+              case Invalid(orig, err): None;
+              case Message(msg): Some(Server(msg));
+            }
+          })
+          .next(function (action) {
+            store.dispatch(action);
+          })
+          .run();
+    }
   }
 }

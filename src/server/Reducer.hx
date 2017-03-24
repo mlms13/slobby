@@ -3,8 +3,8 @@ using thx.Arrays;
 
 import common.ServerMessage;
 import common.ClientMessage;
-import common.types.User;
-import common.resistance.Types;
+import types.Resistance;
+import types.User;
 import Action;
 
 class Reducer {
@@ -22,10 +22,15 @@ class Reducer {
       // ignore actions that don't make sense
       case [Starting, _] | [Running(_), Start(_)]: state;
 
-      // for other invalid messages, notify the client
-      case [Running(server, Lobby(_)), GameAction(who, _)] |
-           [Running(server, Game(_)), LobbyAction(who, _)]:
-        server.send(who.connection, Invalid);
+      // handle attempts to connect when lobby is full
+      case [Running(server, Game(_)), LobbyAction(who, Join)]:
+        server.send(who.connection, Error(LobbyFull));
+        state;
+
+      // handle game actions in a lobby state
+      case [Running(server, Lobby(_)), GameAction(who, _)]:
+        server.send(who.connection, Error(Invalid));
+        state;
     }
   }
 

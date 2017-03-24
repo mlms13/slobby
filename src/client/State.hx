@@ -1,5 +1,8 @@
+import common.ServerMessage;
+import common.ClientMessage;
+
 enum State {
   NotConnected;
-  FailedConnection;
-  Connected(socket: js.html.WebSocket);
+  FailedConnection(err: String);
+  Connected(socket: slobby.Client<ServerMessage, ClientMessage>);
 }
