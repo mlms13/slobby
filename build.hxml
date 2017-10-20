@@ -12,7 +12,8 @@
 
 -lib thx.schema
 -lib thx.stream
+-lib doom
 -cp src/common
 -cp src/client
--main App
+-main Main
 -js public/js/client.js

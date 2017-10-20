@@ -24,8 +24,9 @@ class Main {
             slob.send(client, UsernamePrompt);
           case Invalid(client, orig, parseError):
             trace(parseError);
-            slob.send(client, Error(Unrecognized(parseError)));
+            slob.send(client, Error(FailureToParse(parseError)));
           case Message(connection, JoinLobby(user)):
+            trace(user);
             store.dispatch(LobbyAction(User.fromClientUser(user, connection), Join));
         }
       })

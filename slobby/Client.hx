@@ -35,6 +35,11 @@ class Client<SMsg, CMsg> {
     });
   }
 
+  public function send(msg: CMsg) {
+    var msgObj = SchemaDynamicExtensions.renderDynamic(cMsgSchema, msg);
+    client.send(haxe.Json.stringify(msgObj));
+  }
+
   /**
    *  Attempts to create a slobby.Client, connected to the provided `url`.
    *  This returns `Left(message)` if the connection throws during creation,

@@ -1,5 +1,7 @@
 package common;
 
+import haxe.ds.Option;
+import thx.schema.SchemaDSL.*;
 import thx.schema.SimpleSchema;
 import thx.schema.SimpleSchema.*;
 
@@ -13,12 +15,28 @@ enum ClientMessage {
 class ClientMessageExtensions {
   public static function schema<E>(): Schema<E, ClientMessage> return oneOf([
     // makeAlt("createLobby", CreateLobby, {
-    //   user: User.schema().schema,
+    //   user: ClientUser.schema().schema,
     //   size: int().schema
     // }),
-    // makeAlt("joinLobby", JoinLobby, {
-    //   lobby: string().schema, // TODO: string().schema is wrong
-    //   user: User.schema().schema
-  // })
+    alt(
+      "joinLobby",
+      object(
+        ap1(
+          function(x) return { user: x},
+          required("user", ClientUser.schema(), function(x: {user:ClientUser}) return x.user)
+        )
+      ),
+      function(x: {user: ClientUser}): ClientMessage
+        return JoinLobby(x.user),
+      function(x: ClientMessage): Option<{user: ClientUser}>
+        return switch x {
+          case JoinLobby(x): Some({user:x});
+          case _: None;
+        }
+    )
+  //   {
+  //     lobby: string().schema, // TODO: string().schema is wrong
+  //     user: ClientUser.schema().schema
+  // }
   ]);
 }

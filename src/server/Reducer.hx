@@ -29,7 +29,7 @@ class Reducer {
 
       // handle game actions in a lobby state
       case [Running(server, Lobby(_)), GameAction(who, _)]:
-        server.send(who.connection, Error(Invalid));
+        server.send(who.connection, Error(Invalid("Cannot accept game actions in a lobby state"))); // TODO: be more specific
         state;
     }
   }

@@ -7,10 +7,10 @@ import common.types.Lobby;
 import common.types.ClientUser;
 
 enum ErrorMessage {
-  // AuthRequired;
+  AuthRequired;
   LobbyFull;
-  Invalid; // catch all other invalid actions
-  Unrecognized(err: String); // failure to parse client message
+  Invalid(err: String); // catch all other invalid actions
+  FailureToParse(err: String); // failure to parse client message
 }
 
 enum LobbyMessage {
@@ -28,8 +28,8 @@ enum ServerMessage {
 class ServerMessageExtensions {
   static function errorMessageSchema<E>(): Schema<E, ErrorMessage> return oneOf([
     makeAlt("lobbyFull", LobbyFull),
-    makeAlt("invalid", Invalid),
-    makeAlt("unrecognized", Unrecognized, string().schema)
+    makeAlt("invalid", Invalid, string().schema),
+    makeAlt("failureToParse", FailureToParse, string().schema)
   ]);
 
   public static function schema<E>(): Schema<E, ServerMessage> return oneOf([
